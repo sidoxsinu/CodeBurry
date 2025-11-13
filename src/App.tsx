@@ -11,8 +11,6 @@ import About from './components/About';
 import Auth from './components/Auth';
 import { User, Challenge, Tree, LeaderboardEntry, CommunityPost } from './types';
 import { useAuth } from './context/AuthContext';
-import RequireRole from './components/auth/RequireRole';
-import AdminPanel from './pages/AdminPanel';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
@@ -184,7 +182,7 @@ function App() {
   const handleNavigate = (page: string) => {
     if (page === 'auth' && isAuthenticated) {
       setCurrentPage('dashboard');
-    } else if ((page === 'dashboard' || page === 'garden' || page === 'admin') && !isAuthenticated) {
+    } else if ((page === 'dashboard' || page === 'garden') && !isAuthenticated) {
       setCurrentPage('auth');
     } else {
       setCurrentPage(page);
@@ -239,14 +237,6 @@ function App() {
           <Auth 
             onBack={() => setCurrentPage('home')}
           />
-        );
-      case 'admin':
-        return isAuthenticated ? (
-          <RequireRole role="admin">
-            <AdminPanel />
-          </RequireRole>
-        ) : (
-          <Auth onBack={() => setCurrentPage('home')} />
         );
       case 'about':
         return (

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Droplets, TreePine, User, Home, BookOpen, Trophy, Users, Info, ShieldCheck, LogOut } from 'lucide-react';
+import { Menu, X, Droplets, TreePine, User, Home, BookOpen, Trophy, Users, Info, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export default function Header({ currentPage, onNavigate }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, isAuthenticated, hasRole, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
 
   const navigation = [
     { name: 'Home', id: 'home', icon: Home },
@@ -54,17 +54,6 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                 </button>
               );
             })}
-            {isAuthenticated && hasRole('admin') && (
-              <button
-                onClick={() => onNavigate('admin')}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
-                  currentPage === 'admin' ? 'text-emerald-700 bg-emerald-50' : 'text-emerald-700 hover:bg-emerald-50'
-                }`}
-              >
-                <ShieldCheck className="h-4 w-4" />
-                <span className="font-medium">Admin</span>
-              </button>
-            )}
           </nav>
 
           {/* User Section */}
@@ -75,7 +64,6 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                   <Droplets className="h-4 w-4 text-blue-500" />
                   <span className="text-sm font-semibold text-blue-700">{user.waterDrops}</span>
                 </div>
-                {/* Only show Admin button in the main nav for admin users, not in user section */}
                 <button 
                   onClick={() => onNavigate('dashboard')}
                   className="flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors"
@@ -138,20 +126,6 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                   </button>
                 );
               })}
-              {isAuthenticated && hasRole('admin') && (
-                <button
-                  onClick={() => {
-                    onNavigate('admin');
-                    setIsMenuOpen(false);
-                  }}
-                  className={`flex items-center space-x-3 w-full px-3 py-2 rounded-lg transition-colors ${
-                    currentPage === 'admin' ? 'text-emerald-700 bg-emerald-50' : 'text-emerald-700 hover:bg-emerald-50'
-                  }`}
-                >
-                  <ShieldCheck className="h-4 w-4" />
-                  <span className="font-medium">Admin</span>
-                </button>
-              )}
               {isAuthenticated && (
                 <button
                   onClick={() => { logout(); onNavigate('home'); setIsMenuOpen(false); }}
