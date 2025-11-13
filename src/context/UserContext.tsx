@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 
 interface UserStats {
@@ -32,127 +32,97 @@ export const useUser = () => {
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  const [stats, setStats] = useState<UserStats>({
+  const defaultStats: UserStats = {
+    waterDrops: 750,
+    completedLessons: 28,
+    currentStreak: 14,
+    totalTrees: 5,
+    plantGrowthLevel: 60,
+    rank: 1
+  };
+
+  const unauthenticatedStats: UserStats = {
     waterDrops: 0,
     completedLessons: 0,
     currentStreak: 0,
     totalTrees: 0,
     plantGrowthLevel: 0,
     rank: 1
-  });
-
-  const reloadFromServer = async () => {
-    if (!isAuthenticated) return;
-    try {
-      const res = await fetch('/api/me/leaderboard', { credentials: 'include' });
-      if (res.ok) {
-        const data = await res.json();
-        setStats((prev) => ({
-          ...prev,
-          waterDrops: data.stats?.drops ?? prev.waterDrops,
-          completedLessons: data.stats?.lessonsCompleted ?? prev.completedLessons,
-          currentStreak: data.stats?.streak ?? prev.currentStreak,
-        }));
-      }
-    } catch {}
   };
+
+  const [stats, setStats] = useState<UserStats>(isAuthenticated ? defaultStats : unauthenticatedStats);
 
   useEffect(() => {
     if (isAuthenticated) {
-      (async () => {
-        try {
-          const res = await fetch('/api/me/leaderboard', { credentials: 'include' });
-          if (res.ok) {
-            const data = await res.json();
-            setStats((prev) => ({
-              ...prev,
-              waterDrops: data.stats?.drops ?? 0,
-              completedLessons: data.stats?.lessonsCompleted ?? 0,
-              currentStreak: data.stats?.streak ?? 0,
-            }));
-          }
-        } catch {}
-      })();
+      setStats(defaultStats);
+    } else {
+      setStats(unauthenticatedStats);
     }
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    const onFocus = () => { reloadFromServer(); };
-    window.addEventListener('focus', onFocus);
-    const id = window.setInterval(reloadFromServer, 15000);
-    return () => {
-      window.removeEventListener('focus', onFocus);
-      window.clearInterval(id);
-    };
-  }, [isAuthenticated]);
-
-  const saveStats = (newStats: UserStats) => {
-    setStats(newStats);
-  };
-
-  const addWaterDrops = async (amount: number) => {
-    const updated = { ...stats, waterDrops: stats.waterDrops + amount };
-    saveStats(updated);
-    if (isAuthenticated) {
-      try {
-        await fetch('/api/me/leaderboard', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ drops: amount })
-        });
-      } catch {}
-    }
+  const addWaterDrops = (amount: number) => {
+    setStats(prev => ({
+      ...prev,
+      waterDrops: prev.waterDrops + amount
+    }));
   };
 
   const spendWaterDrops = (amount: number): boolean => {
-    if (stats.waterDrops >= amount) {
-      const updated = { ...stats, waterDrops: stats.waterDrops - amount };
-      saveStats(updated);
-      // Spending does not decrement leaderboard drops; only earning increments
-      return true;
-    }
-    return false;
+    let wasSpent = false;
+    setStats(prev => {
+      if (prev.waterDrops < amount) {
+        return prev;
+      }
+      wasSpent = true;
+      return {
+        ...prev,
+        waterDrops: prev.waterDrops - amount
+      };
+    });
+    return wasSpent;
   };
 
-  const completeLesson = async () => {
-    const newStats = {
-      ...stats,
-      completedLessons: stats.completedLessons + 1,
-      currentStreak: stats.currentStreak + 1
-    };
-    saveStats(newStats);
-    await addWaterDrops(5);
-    if (isAuthenticated) {
-      try {
-        await fetch('/api/me/leaderboard', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ lessons: 1, streakDelta: 1 })
-        });
-      } catch {}
-    }
+  const completeLesson = () => {
+    setStats(prev => ({
+      ...prev,
+      completedLessons: prev.completedLessons + 1,
+      currentStreak: prev.currentStreak + 1,
+      waterDrops: prev.waterDrops + 5
+    }));
   };
 
   const waterPlant = (amount: number): boolean => {
-    if (spendWaterDrops(amount)) {
-      const newGrowthLevel = Math.min(100, stats.plantGrowthLevel + amount * 2);
-      saveStats({ ...stats, plantGrowthLevel: newGrowthLevel });
-      return true;
-    }
-    return false;
+    let wasWatered = false;
+    setStats(prev => {
+      if (prev.waterDrops < amount) {
+        return prev;
+      }
+      wasWatered = true;
+      const newGrowthLevel = Math.min(100, prev.plantGrowthLevel + amount * 2);
+      return {
+        ...prev,
+        waterDrops: prev.waterDrops - amount,
+        plantGrowthLevel: newGrowthLevel
+      };
+    });
+    return wasWatered;
   };
 
   const plantTree = () => {
-    if (stats.plantGrowthLevel >= 100) {
-      saveStats({
-        ...stats,
-        totalTrees: stats.totalTrees + 1,
+    setStats(prev => {
+      if (prev.plantGrowthLevel < 100) {
+        return prev;
+      }
+      return {
+        ...prev,
+        totalTrees: prev.totalTrees + 1,
         plantGrowthLevel: 0
-      });
-    }
+      };
+    });
+  };
+
+  const refreshStats = async () => {
+    return Promise.resolve();
   };
 
   return (
@@ -163,7 +133,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       completeLesson,
       waterPlant,
       plantTree,
-      refreshStats: reloadFromServer
+      refreshStats
     }}>
       {children}
     </UserContext.Provider>

@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 import { User } from '../types';
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  login: (email?: string, password?: string) => Promise<void>;
+  register: (name?: string, email?: string, password?: string) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -14,6 +14,54 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const demoUser: User = {
+  id: 'demo-user',
+  name: 'Demo Learner',
+  email: 'demo@codeburry.com',
+  waterDrops: 750,
+  level: 5,
+  joinedAt: new Date('2024-01-01T00:00:00Z'),
+  garden: [
+    {
+      id: 'tree-1',
+      name: 'Front-End Foundations',
+      category: 'Web Development',
+      growthStage: 'tree',
+      plantedAt: new Date('2024-02-10T00:00:00Z'),
+      waterDropsInvested: 180
+    },
+    {
+      id: 'tree-2',
+      name: 'API Integrations',
+      category: 'Software Engineering',
+      growthStage: 'sapling',
+      plantedAt: new Date('2024-03-18T00:00:00Z'),
+      waterDropsInvested: 95
+    }
+  ],
+  role: 'admin'
+};
+
+const normaliseName = (input?: string) => {
+  if (!input) return demoUser.name;
+  const trimmed = input.trim();
+  if (!trimmed) return demoUser.name;
+  return trimmed
+    .split(' ')
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+};
+
+const createAuthenticatedUser = (overrides?: Partial<User>): User => {
+  return {
+    ...demoUser,
+    ...overrides,
+    joinedAt: overrides?.joinedAt ?? demoUser.joinedAt,
+    garden: overrides?.garden ?? demoUser.garden
+  };
+};
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -24,95 +72,68 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(demoUser);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Attempt to load session from API
-    (async () => {
-      try {
-        const res = await fetch('/api/auth/me', { credentials: 'include' });
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        }
-      } catch (e) {
-        // ignore
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, []);
+  const handleResolveUser = (overrides?: Partial<User>) => {
+    setUser(createAuthenticatedUser(overrides));
+  };
 
-  const login = async (email: string, password: string) => {
+  const login = async (email?: string, password?: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, password })
+      handleResolveUser({
+        email: email || demoUser.email,
+        name: normaliseName(email?.split('@')[0] ?? demoUser.name)
       });
-      if (!res.ok) {
-        const msg = (await res.json())?.message || 'Login failed';
-        throw new Error(msg);
-      }
-      const data = await res.json();
-      setUser(data.user);
     } catch (e: any) {
-      setError(e?.message || 'Login failed');
-      throw e;
+      setError(e?.message ?? 'Unable to start session');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (name?: string, email?: string, password?: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ name, email, password })
+      handleResolveUser({
+        name: normaliseName(name ?? demoUser.name),
+        email: email || demoUser.email
       });
-      if (!res.ok) {
-        const msg = (await res.json())?.message || 'Registration failed';
-        throw new Error(msg);
-      }
-      const data = await res.json();
-      setUser(data.user);
     } catch (e: any) {
-      setError(e?.message || 'Registration failed');
-      throw e;
+      setError(e?.message ?? 'Unable to create session');
     } finally {
       setIsLoading(false);
     }
   };
 
   const logout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
     setUser(null);
+    setError(null);
   };
 
   const hasRole = (role: User['role']) => {
-    return !!user && user.role === role;
+    if (!user) return false;
+    if (user.role === 'admin') return true;
+    return user.role === role;
+  };
+
+  const contextValue: AuthContextType = {
+    user,
+    login,
+    register,
+    logout,
+    isAuthenticated: !!user,
+    isLoading,
+    error,
+    hasRole
   };
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      login,
-      register,
-      logout,
-      isAuthenticated: !!user,
-      isLoading,
-      error,
-      hasRole
-    }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

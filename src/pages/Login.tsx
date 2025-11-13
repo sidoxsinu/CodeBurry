@@ -1,39 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../context/AuthContext';
+import { RocketLaunchIcon } from '@heroicons/react/24/outline';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isAuthenticated, isLoading } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    try {
-      await login(formData.email, formData.password);
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('Login failed:', error);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard', { replace: true });
     }
+  }, [isAuthenticated, navigate]);
+
+  const handleStart = async () => {
+    if (!isAuthenticated) {
+      await login();
+    }
+    navigate('/dashboard', { replace: true });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  if (isAuthenticated) return null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -52,97 +40,31 @@ const Login = () => {
             </Link>
           </div>
           <h2 className="text-center text-3xl font-bold text-gray-900">
-            Welcome back! 🌱
+            Ready when you are! 🚀
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Sign in to continue your learning journey
+            We removed the login step. Start exploring CodeBurry instantly with a demo profile.
           </p>
         </div>
-        
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mt-8 space-y-6"
-          onSubmit={handleSubmit}
-        >
-          <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                placeholder="Enter your email"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full px-3 py-3 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  placeholder="Enter your password"
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <EyeSlashIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                  ) : (
-                    <EyeIcon className="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                  )}
-                </button>
-              </div>
-            </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-green-600 hover:text-green-500">
-                  Forgot your password?
-                </a>
-              </div>
+        <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+              <RocketLaunchIcon className="h-8 w-8 text-green-600" />
             </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {isLoading ? 'Signing in...' : 'Sign in'}
-            </button>
+            <p className="text-gray-600">
+              Tap the button below and we will spin up a fully featured demo session for you—no credentials needed.
+            </p>
           </div>
-        </motion.form>
+
+          <button
+            onClick={handleStart}
+            disabled={isLoading}
+            className="w-full flex justify-center items-center space-x-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            <span>{isLoading ? 'Preparing your dashboard...' : 'Start exploring'}</span>
+          </button>
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -151,26 +73,17 @@ const Login = () => {
           className="text-center"
         >
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
+            Want a personalised account?{' '}
             <Link to="/register" className="font-medium text-green-600 hover:text-green-500">
-              Sign up and start learning! 🚀
+              Connect later from your profile 🌱
             </Link>
           </p>
         </motion.div>
 
-        {/* Demo credentials */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="bg-blue-50 border border-blue-200 rounded-lg p-4"
-        >
-          <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Account</h3>
-          <p className="text-xs text-blue-700 mb-2">Try CodeBurry with any email and password!</p>
-          <div className="text-xs text-blue-600">
-            <p>Email: demo@codeburry.com</p>
-            <p>Password: password123</p>
-          </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+          <p className="text-center text-xs text-gray-400">
+            Demo sessions use local data only—no database calls required.
+          </p>
         </motion.div>
       </motion.div>
     </div>
