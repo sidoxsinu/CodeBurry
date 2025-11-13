@@ -211,9 +211,5 @@ npm run build      # build frontend
 npm run preview    # preview built frontend
 ```
 
-License
--------
-MIT
-
 
 >>>>>>> 4ec178f (Final Commit)
