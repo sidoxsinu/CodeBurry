@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🌱 CodeBurry – Learn by Doing, Grow by Creating
 
 **CodeBurry** is an experimental, hands-on learning platform built to replace passive studying with active exploration.  
