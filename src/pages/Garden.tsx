@@ -61,7 +61,7 @@ const Garden = () => {
               <div className="text-gray-600">Trees Planted</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">{stats.waterDrops}</div>
+              <div className="text-3xl font-bold text-blue-800 mb-2">{stats.waterDrops}</div>
               <div className="text-gray-600">Water Drops Available</div>
             </div>
             <div>

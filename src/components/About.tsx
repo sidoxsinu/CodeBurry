@@ -58,7 +58,7 @@ export default function About({ onGetStarted }: AboutProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-green-50 via-blue-50 to-white pt-16 pb-24">
+      <div className="bg-gradient-to-br from-green-900 via-blue-900 to-gray-900 pt-16 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-8">
@@ -152,18 +152,18 @@ export default function About({ onGetStarted }: AboutProps) {
               ))}
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-12 text-center">
+            <div className="bg-gradient-to-br from-green-900 to-blue-900 rounded-3xl p-12 text-center">
               <div className="space-y-8">
                 <div className="flex justify-center space-x-4">
-                  <BookOpen className="h-12 w-12 text-blue-600" />
+                  <BookOpen className="h-12 w-12 text-blue-300" />
                   <ArrowRight className="h-8 w-8 text-gray-400 mt-2" />
-                  <Target className="h-12 w-12 text-green-600" />
+                  <Target className="h-12 w-12 text-green-300" />
                   <ArrowRight className="h-8 w-8 text-gray-400 mt-2" />
-                  <TreePine className="h-12 w-12 text-green-800" />
+                  <TreePine className="h-12 w-12 text-green-300" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">The CodeBurry Way</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-2xl font-bold text-white mb-4">The CodeBurry Way</h3>
+                  <p className="text-gray-200">
                     <strong>Learn</strong> through interactive challenges → <strong>Practice</strong> hands-on skills → <strong>Grow</strong> your knowledge forest
                   </p>
                 </div>

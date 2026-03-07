@@ -48,11 +48,11 @@ export default function Community() {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-6">Community</h1>
+    <div className="max-w-2xl mx-auto py-8 px-4">
+      <h1 className="text-4xl font-bold mb-6 text-gray-900">Community</h1>
       {isAuthenticated && (
         <form
-          className="mb-6 flex flex-col gap-2"
+          className="mb-6 flex flex-col gap-2 glass rounded-2xl p-6"
           onSubmit={async e => {
             e.preventDefault();
             if (!content.trim()) return;
@@ -71,22 +71,22 @@ export default function Community() {
           }}
         >
           <textarea
-            className="border rounded-lg p-2 w-full"
+            className="border border-white border-opacity-20 rounded-lg p-2 w-full bg-white bg-opacity-20 text-gray-900 placeholder-gray-700 placeholder-opacity-70"
             value={content}
             onChange={e => setContent(e.target.value)}
             placeholder="Share something with the community..."
             rows={3}
           />
-          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded-lg self-end">Post</button>
-          {error && <div className="text-red-500">{error}</div>}
+          <button type="submit" className="bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 px-4 py-2 rounded-lg self-end font-medium hover:from-green-300 hover:to-emerald-300 transition-all">Post</button>
+          {error && <div className="text-red-800">{error}</div>}
         </form>
       )}
       {loading ? (
-        <div>Loading...</div>
+        <div className="text-gray-900">Loading...</div>
       ) : (
         <div className="space-y-4">
           {posts.map(post => (
-            <div key={post._id} className="bg-white rounded-lg shadow p-4 flex gap-4 items-start">
+            <div key={post._id} className="glass rounded-lg shadow p-4 flex gap-4 items-start">
               <img
                 src={post.user.avatar || defaultAvatar}
                 alt={post.user.name}
@@ -101,12 +101,12 @@ export default function Community() {
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold">{post.user.name}</span>
-                  <span className="text-xs text-gray-400">{new Date(post.createdAt).toLocaleString()}</span>
+                  <span className="font-semibold text-white">{post.user.name}</span>
+                  <span className="text-xs text-white text-opacity-70">{new Date(post.createdAt).toLocaleString()}</span>
                 </div>
-                <div className="my-2 text-gray-800">{post.content}</div>
+                <div className="my-2 text-white text-opacity-90">{post.content}</div>
                 <button
-                  className={`relative text-blue-600 hover:text-pink-600 text-sm font-semibold flex items-center gap-1 transition-all duration-150 ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`relative text-cyan-700 hover:text-cyan-900 text-sm font-semibold flex items-center gap-1 transition-all duration-150 ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : ''}`}
                   onClick={() => {
                     if (!isAuthenticated || post.likedBy.includes(user?.id || '')) return;
                     fetch(`/api/community/posts/${post._id}/like`, {
@@ -123,7 +123,7 @@ export default function Community() {
                 </button>
                 {/* Comment Option */}
                 <button
-                  className="ml-4 text-gray-500 hover:text-green-600 text-sm flex items-center gap-1"
+                  className="ml-4 text-white text-opacity-60 hover:text-green-300 text-sm flex items-center gap-1"
                   onClick={() => setPosts(prev => prev.map(p => p._id === post._id ? { ...p, showComment: !p.showComment } : p))}
                 >
                   💬 Comment
@@ -138,7 +138,7 @@ export default function Community() {
                 {post.comments && post.comments.length > 0 && (
                   <div className="mt-3 space-y-2">
                     {post.comments.map((c, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm bg-gray-50 rounded p-2">
+                      <div key={i} className="flex items-start gap-2 text-sm bg-white bg-opacity-10 rounded p-2">
                         <img
                           src={c.user.avatar || defaultAvatar}
                           alt={c.user.name}
@@ -152,9 +152,9 @@ export default function Community() {
                           }}
                         />
                         <div>
-                          <span className="font-semibold">{c.user.name}</span>{' '}
-                          <span className="text-gray-400">{new Date(c.createdAt).toLocaleString()}</span>
-                          <div>{c.content}</div>
+                          <span className="font-semibold text-white">{c.user.name}</span>{' '}
+                          <span className="text-white text-opacity-60">{new Date(c.createdAt).toLocaleString()}</span>
+                          <div className="text-white text-opacity-80">{c.content}</div>
                         </div>
                       </div>
                     ))}
@@ -201,16 +201,16 @@ function CommentForm({ postId, onComment }: { postId: string; onComment: (commen
     <form className="mt-2 flex gap-2" onSubmit={handleSubmit}>
       <input
         type="text"
-        className="flex-1 border rounded px-2 py-1 text-sm"
+        className="flex-1 border border-white border-opacity-20 rounded px-2 py-1 text-sm bg-white bg-opacity-20 text-gray-900 placeholder-gray-700 placeholder-opacity-70"
         placeholder="Write a comment..."
         value={comment}
         onChange={e => setComment(e.target.value)}
         disabled={!isAuthenticated || loading}
       />
-      <button type="submit" className="bg-green-500 text-white px-3 py-1 rounded disabled:opacity-50" disabled={!isAuthenticated || loading || !comment.trim()}>
+      <button type="submit" className="bg-green-500 bg-opacity-70 text-gray-900 px-3 py-1 rounded disabled:opacity-50 hover:bg-opacity-80 transition-all font-medium" disabled={!isAuthenticated || loading || !comment.trim()}>
         Post
       </button>
-      {error && <div className="text-red-500 ml-2">{error}</div>}
+      {error && <div className="text-red-800 ml-2">{error}</div>}
     </form>
   );
 }

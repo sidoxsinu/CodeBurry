@@ -80,24 +80,94 @@ CodeBurry’s goal is to make learning **active, visual, and rewarding** — hel
 
 ## 🛠 Setup (For Developers)
 
+### Prerequisites
+- **Node.js** 18+ installed
+- **npm** or **yarn** package manager
+
+### Installation & Running
+
+#### 1. **Clone the Repository**
 ```bash
-# Clone this repository
 git clone https://github.com/sidoxsinu/codeburry.git
-
-# Navigate into the project folder
 cd codeburry
+```
 
-# Install dependencies
+#### 2. **Install Dependencies**
+```bash
 npm install
+```
 
-# Run the development server
+#### 3. **Run Development Server**
+The application runs both frontend and backend concurrently:
+
+```bash
 npm run dev
-=======
-CodeBurry
-================
+```
 
-A full-stack React + Vite + Express + MongoDB app with gamified learning:
-- Learning Hub for starting challenges and uploading task files
+This command will:
+- ✅ Start the **Vite frontend** on `http://localhost:5173`
+- ✅ Start the **Express backend** on `http://localhost:4000`
+
+#### 4. **Build for Production**
+```bash
+npm run build
+```
+
+Builds the React app to the `dist` folder for deployment.
+
+#### 5. **Run Linting**
+```bash
+npm lint
+```
+
+Checks code quality with ESLint.
+
+### 🔧 Development Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Run frontend + backend concurrently |
+| `npm run dev:client` | Run only Vite frontend on `:5173` |
+| `npm run dev:server` | Run only Express backend on `:4000` |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build locally |
+| `npm lint` | Run ESLint checks |
+
+---
+
+## 📁 Project Structure
+
+```
+codeburry/
+├── src/                    # React frontend (TypeScript)
+│   ├── components/        # UI components
+│   ├── pages/            # Page components
+│   ├── context/          # React context (Auth, User)
+│   ├── types/            # TypeScript interfaces
+│   └── App.tsx           # Main app component
+├── server/               # Express backend
+│   ├── server.js         # Server entry point
+│   ├── middleware/       # Express middleware
+│   ├── models/           # MongoDB models
+│   └── routes/           # API routes
+├── public/               # Static assets
+├── vite.config.ts        # Vite configuration
+├── tailwind.config.js    # Tailwind CSS config
+├── tsconfig.json         # TypeScript config
+└── package.json          # Dependencies & scripts
+```
+
+---
+
+## 🌐 Features Overview
+
+**CodeBurry** is a full-stack React + Vite + Express + MongoDB app with gamified learning:
+- 🎯 **Learning Hub** – Start challenges and upload task files
+- 🌳 **Virtual Garden** – Watch your skills grow as trees
+- 🏆 **Leaderboard** – Compete with other learners
+- 💬 **Community** – Share achievements and learning journeys
+- 📊 **Dashboard** – Track personal progress and stats
+- 🎮 **Gamification** – Earn water drops and unlock milestones
 - Admin Panel for verifying submissions and awarding water drops
 - Leaderboard powered by database stats (drops, lessons, streak)
 - Dashboard and Garden showing user progress (DB-backed)

@@ -264,7 +264,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                     <div className="flex items-center space-x-2 mb-2">
                       <h3 className="text-xl font-bold text-gray-900">{challenge.title}</h3>
                       {(challenge as any).isUploaded && (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-800 text-blue-100">
                           <Upload className="h-3 w-3 mr-1" />
                           Uploaded
                         </span>
@@ -284,7 +284,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                     </div>
                     <p className="text-gray-600 text-sm leading-relaxed">{challenge.description}</p>
                     {(challenge as any).fileName && (
-                      <p className="text-xs text-blue-600 mt-1 flex items-center">
+                      <p className="text-xs text-blue-800 mt-1 flex items-center">
                         <FileText className="h-3 w-3 mr-1" />
                         File: {(challenge as any).fileName}
                       </p>
@@ -302,7 +302,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(challenge.difficulty)}`}>
                     {challenge.difficulty}
                   </span>
-                  <span className="flex items-center space-x-1 px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
+                  <span className="flex items-center space-x-1 px-3 py-1 bg-blue-800 text-blue-100 rounded-full text-sm font-medium">
                     <Clock className="h-3 w-3" />
                     <span>{challenge.timeEstimate}</span>
                   </span>
@@ -311,8 +311,8 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 {/* Reward and Action */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-1">
-                    <Droplets className="h-5 w-5 text-blue-500" />
-                    <span className="text-lg font-bold text-blue-600">+{challenge.reward}</span>
+                    <Droplets className="h-5 w-5 text-blue-700" />
+                    <span className="text-lg font-bold text-blue-800">+{challenge.reward}</span>
                     <span className="text-sm text-gray-500">drops</span>
                   </div>
                   
@@ -329,7 +329,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                   {challenge.status === 'started' && (
                     <button
                       onClick={() => handleOpenCompletionModal(challenge)}
-                      className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all bg-blue-800 hover:bg-blue-900 text-white shadow-md hover:shadow-lg"
                     >
                       <Upload className="h-4 w-4" />
                       <span>Submit Task</span>

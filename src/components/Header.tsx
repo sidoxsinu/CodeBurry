@@ -22,7 +22,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
   ];
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-green-100">
+    <header className="glass-dark sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -30,7 +30,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             <div className="bg-gradient-to-r from-green-500 to-green-600 p-2 rounded-lg">
               <TreePine className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-gray-900">
               CodeBurry
             </span>
           </div>
@@ -45,8 +45,8 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                   onClick={() => onNavigate(item.id)}
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
                     currentPage === item.id
-                      ? 'text-green-600 bg-green-50'
-                      : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                      ? 'text-gray-900 bg-white bg-opacity-30 backdrop-blur-md'
+                      : 'text-gray-800 hover:text-gray-900 hover:bg-white hover:bg-opacity-20 backdrop-blur-sm'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -60,24 +60,24 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
           <div className="flex items-center space-x-4">
             {isAuthenticated && user ? (
               <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-1 bg-blue-50 px-3 py-1 rounded-full">
-                  <Droplets className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm font-semibold text-blue-700">{user.waterDrops}</span>
+                <div className="flex items-center space-x-1 glass px-3 py-1 rounded-full">
+                  <Droplets className="h-4 w-4 text-cyan-600" />
+                  <span className="text-sm font-semibold text-gray-900">{user.waterDrops}</span>
                 </div>
                 <button 
                   onClick={() => onNavigate('dashboard')}
-                  className="flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 glass px-3 py-2 rounded-lg transition-colors hover:bg-white hover:bg-opacity-40"
                 >
                   {user.avatar ? (
                     <img src={user.avatar} alt={user.name} className="h-6 w-6 rounded-full" />
                   ) : (
-                    <User className="h-4 w-4 text-gray-600" />
+                    <User className="h-4 w-4 text-gray-800" />
                   )}
-                  <span className="text-sm font-medium text-gray-700 hidden sm:block">{user.name}</span>
+                  <span className="text-sm font-medium text-gray-900 hidden sm:block">{user.name}</span>
                 </button>
                 <button
                   onClick={() => { logout(); onNavigate('home'); }}
-                  className="flex items-center space-x-1 text-gray-500 hover:text-red-600"
+                  className="flex items-center space-x-1 text-gray-700 hover:text-gray-900 transition-colors"
                   title="Logout"
                 >
                   <LogOut className="h-5 w-5" />
@@ -86,7 +86,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             ) : (
               <button 
                 onClick={() => onNavigate('auth')}
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                className="glass-light text-gray-900 px-4 py-2 rounded-lg font-medium transition-all hover:bg-white hover:bg-opacity-40"
               >
                 Join CodeBurry
               </button>
@@ -95,7 +95,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-600 hover:text-green-600 hover:bg-green-50"
+              className="md:hidden p-2 rounded-lg text-gray-800 hover:text-gray-900 hover:bg-white hover:bg-opacity-20"
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -104,7 +104,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
+          <div className="md:hidden py-4 glass">
             <nav className="space-y-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
@@ -117,8 +117,8 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
                     }}
                     className={`flex items-center space-x-3 w-full px-3 py-2 rounded-lg transition-colors ${
                       currentPage === item.id
-                        ? 'text-green-600 bg-green-50'
-                        : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                        ? 'text-gray-900 bg-white bg-opacity-30 backdrop-blur-md'
+                        : 'text-gray-800 hover:text-gray-900 hover:bg-white hover:bg-opacity-20'
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -129,7 +129,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
               {isAuthenticated && (
                 <button
                   onClick={() => { logout(); onNavigate('home'); setIsMenuOpen(false); }}
-                  className="flex items-center space-x-3 w-full px-3 py-2 rounded-lg text-gray-600 hover:text-red-600"
+                  className="flex items-center space-x-3 w-full px-3 py-2 rounded-lg text-gray-800 hover:text-gray-900"
                 >
                   <LogOut className="h-4 w-4" />
                   <span className="font-medium">Logout</span>

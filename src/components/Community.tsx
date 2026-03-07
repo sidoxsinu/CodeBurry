@@ -31,7 +31,7 @@ export default function Community({ posts, currentUser, onLikePost, onCreatePost
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-8 pb-16">
+    <div className="min-h-screen glass pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -46,19 +46,19 @@ export default function Community({ posts, currentUser, onLikePost, onCreatePost
 
         {/* Community Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
-            <Users className="h-8 w-8 text-blue-600 mx-auto mb-3" />
+          <div className="glass rounded-2xl p-6 shadow-lg text-center">
+            <Users className="h-8 w-8 text-blue-800 mx-auto mb-3" />
             <div className="text-2xl font-bold text-gray-900">10,247</div>
             <div className="text-gray-600">Active Learners</div>
           </div>
           
-          <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
+          <div className="glass rounded-2xl p-6 shadow-lg text-center">
             <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-3" />
             <div className="text-2xl font-bold text-gray-900">52,891</div>
             <div className="text-gray-600">Trees Planted This Week</div>
           </div>
           
-          <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
+          <div className="glass rounded-2xl p-6 shadow-lg text-center">
             <Award className="h-8 w-8 text-purple-600 mx-auto mb-3" />
             <div className="text-2xl font-bold text-gray-900">1,856</div>
             <div className="text-gray-600">Achievements Shared</div>
@@ -67,7 +67,7 @@ export default function Community({ posts, currentUser, onLikePost, onCreatePost
 
         {/* Create Post */}
         {currentUser && (
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <div className="glass rounded-2xl shadow-lg p-6 mb-8">
             <div className="flex items-start space-x-4">
               {currentUser.avatar ? (
                 <img

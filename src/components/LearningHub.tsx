@@ -123,14 +123,14 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-8 pb-16">
+    <div className="min-h-screen pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 glass-light rounded-3xl p-8 md:p-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
             Active Learning Hub
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-800 max-w-3xl mx-auto">
             Transform your knowledge through hands-on challenges. Every completed task grows your skills 
             and earns water drops to nurture your learning forest.
           </p>
@@ -146,8 +146,8 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
                   selectedCategory === category.id
-                    ? 'bg-green-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-green-50 hover:text-green-600 shadow-md'
+                    ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 shadow-lg'
+                    : 'glass text-white hover:bg-white hover:bg-opacity-30 shadow-md'
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -160,7 +160,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
         {/* Flash message */}
         {flash && (
           <div
-            className="mx-auto mb-4 max-w-3xl rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-800"
+            className="mx-auto mb-4 max-w-3xl rounded-lg glass px-4 py-3 text-gray-900 border border-white border-opacity-30"
             role="status"
             aria-live="polite"
           >
@@ -173,8 +173,8 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
           {filteredChallenges.map((challenge) => (
             <div
               key={challenge.id}
-              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-                (completedById[challenge.id] || challenge.completed) ? 'ring-2 ring-green-200' : ''
+              className={`glass rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
+                (completedById[challenge.id] || challenge.completed) ? 'ring-2 ring-white ring-opacity-40' : ''
               }`}
             >
               <div className="p-6">
@@ -182,21 +182,25 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{challenge.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">{challenge.description}</p>
+                    <p className="text-gray-700 text-sm leading-relaxed">{challenge.description}</p>
                   </div>
                   {(completedById[challenge.id] || challenge.completed) && (
                     <div className="ml-4">
-                      <Trophy className="h-6 w-6 text-green-600" />
+                      <Trophy className="h-6 w-6 text-green-700" />
                     </div>
                   )}
                 </div>
 
                 {/* Challenge Metadata */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(challenge.difficulty)}`}>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium text-gray-900 ${
+                    challenge.difficulty === 'beginner' ? 'bg-green-300 bg-opacity-70' :
+                    challenge.difficulty === 'intermediate' ? 'bg-yellow-300 bg-opacity-70' :
+                    'bg-red-300 bg-opacity-70'
+                  }`}>
                     {challenge.difficulty}
                   </span>
-                  <span className="flex items-center space-x-1 px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
+                  <span className="flex items-center space-x-1 px-3 py-1 bg-cyan-700 bg-opacity-70 text-gray-900 rounded-full text-sm font-medium">
                     <Clock className="h-3 w-3" />
                     <span>{challenge.timeEstimate}</span>
                   </span>
@@ -205,9 +209,9 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 {/* Reward and Action */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-1">
-                    <Droplets className="h-5 w-5 text-blue-500" />
-                    <span className="text-lg font-bold text-blue-600">+{challenge.reward}</span>
-                    <span className="text-sm text-gray-500">drops</span>
+                    <Droplets className="h-5 w-5 text-cyan-700" />
+                    <span className="text-lg font-bold text-cyan-800">+{challenge.reward}</span>
+                    <span className="text-sm text-gray-700">drops</span>
                   </div>
                   
                   <button
@@ -218,10 +222,10 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                     disabled={completedById[challenge.id] || challenge.completed}
                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
                       (completedById[challenge.id] || challenge.completed)
-                        ? 'bg-green-100 text-green-600 cursor-not-allowed'
+                        ? 'bg-green-400 bg-opacity-60 text-gray-900 cursor-not-allowed'
                         : startedById[challenge.id]
-                          ? 'bg-yellow-100 text-yellow-700 cursor-default'
-                          : 'bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg'
+                          ? 'bg-yellow-400 bg-opacity-60 text-gray-900 cursor-default'
+                          : 'bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-300 hover:to-emerald-300 text-gray-900 shadow-md hover:shadow-lg'
                     }`}
                   >
                     <span>{(completedById[challenge.id] || challenge.completed) ? 'Completed' : startedById[challenge.id] ? 'Started' : 'Start Challenge'}</span>
@@ -231,15 +235,15 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
 
                 {/* Upload panel once started and not yet completed */}
                 {startedById[challenge.id] && !(completedById[challenge.id] || challenge.completed) && (
-                  <div className="mt-4 border-t border-gray-100 pt-4">
-                    <div className="text-sm text-gray-700 mb-2">Upload your task files when completed:</div>
+                  <div className="mt-4 border-t border-white border-opacity-20 pt-4">
+                    <div className="text-sm text-gray-800 mb-2">Upload your task files when completed:</div>
                     <input
                       type="file"
                       onChange={(e) => {
                         const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
                         setUploadById(prev => ({ ...prev, [challenge.id]: file }));
                       }}
-                      className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                      className="block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-400 file:bg-opacity-60 file:text-gray-900 hover:file:bg-green-400 hover:file:bg-opacity-70"
                     />
                     <div className="flex justify-end mt-3">
                       <button
@@ -270,12 +274,12 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                           setUploadingById(prev => ({ ...prev, [challenge.id]: false }));
                         }}
                         disabled={!uploadById[challenge.id] || uploadingById[challenge.id]}
-                        className={`px-4 py-2 rounded-lg font-medium ${uploadById[challenge.id] && !uploadingById[challenge.id] ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}
+                        className={`px-4 py-2 rounded-lg font-medium ${uploadById[challenge.id] && !uploadingById[challenge.id] ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 hover:from-green-300 hover:to-emerald-300' : 'bg-white bg-opacity-20 text-gray-800 cursor-not-allowed'}`}
                       >
                         {uploadingById[challenge.id] ? 'Uploading…' : 'Upload Task'}
                       </button>
                       {errorById[challenge.id] && (
-                        <div className="ml-3 text-sm text-red-600">{errorById[challenge.id]}</div>
+                        <div className="ml-3 text-sm text-red-200">{errorById[challenge.id]}</div>
                       )}
                     </div>
                   </div>
@@ -287,12 +291,12 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-green-600 to-green-800 rounded-3xl p-8 text-white">
+          <div className="glass-light rounded-3xl p-8 text-gray-900">
             <h2 className="text-3xl font-bold mb-4">Ready to grow your forest?</h2>
-            <p className="text-xl opacity-90 mb-6">
+            <p className="text-xl text-gray-800 mb-6">
               Complete challenges, earn water drops, and watch your skills bloom into mighty trees.
             </p>
-            <button className="bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
+            <button className="bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-green-300 hover:to-emerald-300 transition-colors">
               View My Garden
             </button>
           </div>

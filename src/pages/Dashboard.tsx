@@ -130,7 +130,7 @@ const Dashboard = () => {
                 <button
                   onClick={() => setIsWaterModalOpen(true)}
                   disabled={stats.waterDrops === 0}
-                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
+                  className="w-full bg-blue-800 hover:bg-blue-900 disabled:bg-gray-300 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
                 >
                   <span>💧</span>
                   <span>Water Plant</span>
@@ -192,9 +192,9 @@ const Dashboard = () => {
                     <div className="text-2xl font-bold text-green-600">#{stats.rank}</div>
                     <div className="text-sm text-gray-600">Global Rank</div>
                   </div>
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">{stats.currentStreak}</div>
-                    <div className="text-sm text-gray-600">Day Streak</div>
+                  <div className="text-center p-4 bg-blue-900 bg-opacity-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-300">{stats.currentStreak}</div>
+                    <div className="text-sm text-gray-300">Day Streak</div>
                   </div>
                 </div>
               </div>
