@@ -93,7 +93,7 @@ const Dashboard = () => {
               className="bg-white rounded-xl shadow-md p-6"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className={`w-12 h-12 ${card.color} rounded-lg flex items-center justify-center text-white`}>
+                <div className={`w-12 h-12 ${card.color} rounded-lg flex items-center justify-center text-green-900`}>
                   {typeof card.icon === 'string' ? (
                     <span className="text-2xl">{card.icon}</span>
                   ) : (
@@ -126,18 +126,18 @@ const Dashboard = () => {
                 <PlantGrowth growthLevel={stats.plantGrowthLevel} size="lg" />
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <button
                   onClick={() => setIsWaterModalOpen(true)}
                   disabled={stats.waterDrops === 0}
-                  className="w-full bg-blue-800 hover:bg-blue-900 disabled:bg-gray-300 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
+                  className="glass w-full bg-blue-800 hover:bg-blue-900 disabled:bg-gray-300 text-green-900 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
                 >
                   <span>💧</span>
                   <span>Water Plant</span>
                 </button>
 
                 {stats.plantGrowthLevel >= 100 && (
-                  <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2">
+                  <button className="glass w-full bg-green-600 hover:bg-green-700 text-green-900 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2">
                     <span>🌳</span>
                     <span>Plant Tree in Garden</span>
                   </button>

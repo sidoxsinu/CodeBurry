@@ -110,7 +110,7 @@ const Leaderboard = () => {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key as any)}
-                className={`flex-1 py-4 px-6 text-center font-semibold transition-all ${
+                className={`glass flex-1 py-4 px-6 text-center font-semibold transition-all ${
                   activeTab === tab.key
                     ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 rounded-xl m-2'
                     : 'text-gray-800 hover:text-gray-900 hover:bg-white hover:bg-opacity-10'

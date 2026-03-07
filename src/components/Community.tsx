@@ -111,7 +111,7 @@ export default function Community({ posts, currentUser, onLikePost, onCreatePost
                       <button
                         onClick={handleCreatePost}
                         disabled={!newPost.trim()}
-                        className="bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                        className="bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-green-900 px-6 py-2 rounded-lg font-medium transition-colors"
                       >
                         Share
                       </button>
@@ -211,14 +211,14 @@ export default function Community({ posts, currentUser, onLikePost, onCreatePost
 
         {/* Load More */}
         <div className="text-center mt-12">
-          <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-medium transition-colors">
+          <button className="bg-green-600 hover:bg-green-700 text-green-900 px-8 py-3 rounded-xl font-medium transition-colors">
             Load More Posts
           </button>
         </div>
 
         {/* Join Community CTA */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 text-white">
+          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 text-green-900">
             <h2 className="text-3xl font-bold mb-4">Join the Growing Community</h2>
             <p className="text-xl opacity-90 mb-6">
               Connect with fellow learners, share your progress, and celebrate each other's growth.

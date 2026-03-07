@@ -45,20 +45,20 @@ export default function Hero({ onGetStarted, onWatchDemo }: HeroProps) {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <button
                 onClick={onGetStarted}
-                className="group bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-300 hover:to-emerald-300 text-gray-900 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="group bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-300 hover:to-emerald-300 text-gray-900 px-6 py-3 rounded-xl font-semibold text-base transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 <span>Grow Your Tree</span>
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </button>
               
               <button
                 onClick={onWatchDemo}
-                className="group flex items-center space-x-2 px-8 py-4 rounded-xl font-semibold text-lg text-white hover:text-gray-100 transition-colors glass border-2 border-white border-opacity-30 hover:border-opacity-50"
+                className="group flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold text-base text-black hover:text-gray-800 transition-colors glass border-2 border-white border-opacity-30 hover:border-opacity-50"
               >
-                <Play className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                <Play className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 <span>Watch Demo</span>
               </button>
             </div>

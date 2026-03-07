@@ -56,20 +56,20 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
               <Link
                 to="/register"
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center space-x-2"
+                className="glass bg-green-600 hover:bg-green-700 text-green-900 px-6 py-3 rounded-lg font-semibold text-base transition-colors flex items-center space-x-2"
               >
                 <span>Start Learning Today</span>
-                <ArrowRightIcon className="h-5 w-5" />
+                <ArrowRightIcon className="h-4 w-4" />
               </Link>
               <Link
                 to="/learning-hub"
-                className="border border-green-600 text-green-600 hover:bg-green-50 px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center space-x-2"
+                className="glass border border-green-600 text-green-600 hover:bg-green-50 px-6 py-3 rounded-lg font-semibold text-base transition-colors flex items-center space-x-2"
               >
-                <PlayIcon className="h-5 w-5" />
+                <PlayIcon className="h-4 w-4" />
                 <span>Explore Courses</span>
               </Link>
             </motion.div>

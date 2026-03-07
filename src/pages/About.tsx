@@ -237,7 +237,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4">
               Join Our Growing Community
             </h2>
             <p className="text-xl text-green-100 mb-8">
@@ -246,13 +246,13 @@ const About = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/register"
-                className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="glass bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors"
               >
                 Start Learning Free
               </a>
               <a
                 href="/contact"
-                className="border border-white text-white hover:bg-white hover:text-green-600 px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="glass border border-white text-green-900 hover:bg-white hover:text-green-600 px-8 py-3 rounded-lg font-semibold transition-colors"
               >
                 Get in Touch
               </a>

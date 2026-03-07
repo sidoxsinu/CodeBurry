@@ -219,7 +219,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
           <div className="flex justify-center">
             <button
               onClick={() => setIsUploadModalOpen(true)}
-              className="inline-flex items-center space-x-3 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="glass inline-flex items-center space-x-3 bg-gradient-to-r from-green-600 to-green-700 text-green-900 px-6 py-3 rounded-xl font-semibold text-base hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               <Upload className="h-6 w-6" />
               <span>Upload Your Task</span>
@@ -228,20 +228,20 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-6 mb-12">
           {categories.map((category) => {
             const Icon = category.icon;
             return (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all ${
                   selectedCategory === category.id
-                    ? 'bg-green-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-green-50 hover:text-green-600 shadow-md'
+                    ? 'glass bg-green-600 text-green-900 shadow-lg'
+                    : 'glass text-gray-700 hover:text-green-600 shadow-md'
                 }`}
               >
-                <Icon className="h-5 w-5" />
+                <Icon className="h-4 w-4" />
                 <span>{category.name}</span>
               </button>
             );
@@ -319,9 +319,9 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                   {challenge.status === 'not_started' && (
                     <button
                       onClick={() => handleStartChallenge(challenge)}
-                      className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg"
+                      className="glass flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-all bg-green-600 hover:bg-green-700 text-green-900 shadow-md hover:shadow-lg"
                     >
-                      <Play className="h-4 w-4" />
+                      <Play className="h-3 w-3" />
                       <span>Start Challenge</span>
                     </button>
                   )}
@@ -329,9 +329,9 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                   {challenge.status === 'started' && (
                     <button
                       onClick={() => handleOpenCompletionModal(challenge)}
-                      className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all bg-blue-800 hover:bg-blue-900 text-white shadow-md hover:shadow-lg"
+                      className="glass flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-all bg-blue-800 hover:bg-blue-900 text-green-900 shadow-md hover:shadow-lg"
                     >
-                      <Upload className="h-4 w-4" />
+                      <Upload className="h-3 w-3" />
                       <span>Submit Task</span>
                     </button>
                   )}
@@ -339,9 +339,9 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                   {challenge.status === 'completed' && (
                     <button
                       disabled
-                      className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all bg-green-100 text-green-600 cursor-not-allowed"
+                      className="flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-all bg-green-100 text-green-600 cursor-not-allowed"
                     >
-                      <CheckCircle className="h-4 w-4" />
+                      <CheckCircle className="h-3 w-3" />
                       <span>Completed</span>
                     </button>
                   )}
@@ -350,7 +350,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                   {!challenge.status && (
                     <button
                       onClick={() => challenge.completed ? handleOpenCompletionModal(challenge) : handleStartChallenge(challenge)}
-                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                      className={`glass flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
                         challenge.completed
                           ? 'bg-green-100 text-green-600 cursor-not-allowed'
                           : 'bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg'
@@ -373,7 +373,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
             <p className="text-xl opacity-90 mb-6">
               Complete challenges, earn water drops, and watch your skills bloom into mighty trees.
             </p>
-            <button className="bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
+            <button className="glass bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
               View My Garden
             </button>
           </div>

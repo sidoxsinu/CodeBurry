@@ -132,16 +132,16 @@ export default function Dashboard({ recentChallenges, onNavigate }: DashboardPro
           <div className="glass rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-6">
               {quickActions.map((action, index) => {
                 const Icon = action.icon;
                 return (
                   <button
                     key={index}
                     onClick={action.action}
-                    className="flex flex-col items-center p-4 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl transition-colors text-center"
+                    className="flex flex-col items-center p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl transition-colors text-center"
                   >
-                    <Icon className="h-8 w-8 text-gray-700 mb-2" />
+                    <Icon className="h-6 w-6 text-gray-700 mb-2" />
                     <span className="text-sm font-medium text-gray-900">{action.label}</span>
                   </button>
                 );

@@ -162,7 +162,7 @@ export default function About({ onGetStarted }: AboutProps) {
                   <TreePine className="h-12 w-12 text-green-300" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">The CodeBurry Way</h3>
+                  <h3 className="text-2xl font-bold text-green-900 mb-4">The CodeBurry Way</h3>
                   <p className="text-gray-200">
                     <strong>Learn</strong> through interactive challenges → <strong>Practice</strong> hands-on skills → <strong>Grow</strong> your knowledge forest
                   </p>
@@ -199,7 +199,7 @@ export default function About({ onGetStarted }: AboutProps) {
       {/* Call to Action */}
       <div className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-green-600 to-green-800 rounded-3xl p-12 text-center text-white">
+          <div className="bg-gradient-to-r from-green-600 to-green-800 rounded-3xl p-12 text-center text-green-900">
             <h2 className="text-4xl font-bold mb-6">Ready to Start Growing?</h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
               Join thousands of active learners who are transforming their knowledge into real skills and watching their expertise bloom.

@@ -135,17 +135,17 @@ export default function Garden({ trees, waterDrops, onWaterTree, onPlantNewTree 
                       onWaterTree(tree.id);
                     }}
                     disabled={!canWaterTree(tree)}
-                    className={`flex items-center justify-center space-x-1 w-full py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+                    className={`glass flex items-center justify-center space-x-1 w-full py-2 px-3 rounded-lg text-sm font-medium transition-all ${
                       canWaterTree(tree)
-                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                        : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                        ? 'bg-blue-800 hover:bg-blue-900 text-blue-100'
+                        : 'bg-gray-600 text-gray-400 cursor-not-allowed'
                     }`}
                   >
                     <Droplets className="h-4 w-4" />
                     <span>{getWaterCost(tree.growthStage)}</span>
                   </button>
                 ) : (
-                  <div className="flex items-center justify-center space-x-1 w-full py-2 px-3 bg-green-100 text-green-600 rounded-lg text-sm font-medium">
+                  <div className="glass flex items-center justify-center space-x-1 w-full py-2 px-3 bg-green-700 text-green-100 rounded-lg text-sm font-medium">
                     <Sparkles className="h-4 w-4" />
                     <span>Fully Grown!</span>
                   </div>
@@ -167,7 +167,7 @@ export default function Garden({ trees, waterDrops, onWaterTree, onPlantNewTree 
         <div className="text-center">
           <button
             onClick={onPlantNewTree}
-            className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="glass bg-green-800 hover:bg-green-900 text-green-100 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Plant New Tree
           </button>
@@ -200,7 +200,7 @@ export default function Garden({ trees, waterDrops, onWaterTree, onPlantNewTree 
               
               <button
                 onClick={() => setSelectedTree(null)}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-xl font-medium transition-colors"
+                className="glass w-full bg-gray-700 hover:bg-gray-800 text-gray-100 py-3 rounded-xl font-medium transition-colors"
               >
                 Close
               </button>

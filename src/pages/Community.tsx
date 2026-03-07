@@ -77,7 +77,7 @@ export default function Community() {
             placeholder="Share something with the community..."
             rows={3}
           />
-          <button type="submit" className="bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 px-4 py-2 rounded-lg self-end font-medium hover:from-green-300 hover:to-emerald-300 transition-all">Post</button>
+          <button type="submit" className="glass bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 px-4 py-2 rounded-lg self-end font-medium hover:from-green-300 hover:to-emerald-300 transition-all">Post</button>
           {error && <div className="text-red-800">{error}</div>}
         </form>
       )}
@@ -101,12 +101,12 @@ export default function Community() {
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-white">{post.user.name}</span>
-                  <span className="text-xs text-white text-opacity-70">{new Date(post.createdAt).toLocaleString()}</span>
+                  <span className="font-semibold text-green-900">{post.user.name}</span>
+                  <span className="text-xs text-green-700">{new Date(post.createdAt).toLocaleString()}</span>
                 </div>
-                <div className="my-2 text-white text-opacity-90">{post.content}</div>
+                <div className="my-2 text-green-800">{post.content}</div>
                 <button
-                  className={`relative text-cyan-700 hover:text-cyan-900 text-sm font-semibold flex items-center gap-1 transition-all duration-150 ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`glass relative text-cyan-700 hover:text-cyan-900 text-sm font-semibold flex items-center gap-1 transition-all duration-150 ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : ''}`}
                   onClick={() => {
                     if (!isAuthenticated || post.likedBy.includes(user?.id || '')) return;
                     fetch(`/api/community/posts/${post._id}/like`, {
@@ -123,7 +123,7 @@ export default function Community() {
                 </button>
                 {/* Comment Option */}
                 <button
-                  className="ml-4 text-white text-opacity-60 hover:text-green-300 text-sm flex items-center gap-1"
+                  className="glass ml-4 text-green-700 hover:text-green-900 text-sm flex items-center gap-1"
                   onClick={() => setPosts(prev => prev.map(p => p._id === post._id ? { ...p, showComment: !p.showComment } : p))}
                 >
                   💬 Comment
@@ -152,9 +152,9 @@ export default function Community() {
                           }}
                         />
                         <div>
-                          <span className="font-semibold text-white">{c.user.name}</span>{' '}
-                          <span className="text-white text-opacity-60">{new Date(c.createdAt).toLocaleString()}</span>
-                          <div className="text-white text-opacity-80">{c.content}</div>
+                          <span className="font-semibold text-green-900">{c.user.name}</span>{' '}
+                          <span className="text-green-700">{new Date(c.createdAt).toLocaleString()}</span>
+                          <div className="text-green-800">{c.content}</div>
                         </div>
                       </div>
                     ))}
@@ -207,7 +207,7 @@ function CommentForm({ postId, onComment }: { postId: string; onComment: (commen
         onChange={e => setComment(e.target.value)}
         disabled={!isAuthenticated || loading}
       />
-      <button type="submit" className="bg-green-500 bg-opacity-70 text-gray-900 px-3 py-1 rounded disabled:opacity-50 hover:bg-opacity-80 transition-all font-medium" disabled={!isAuthenticated || loading || !comment.trim()}>
+      <button type="submit" className="glass bg-green-500 bg-opacity-70 text-gray-900 px-3 py-1 rounded disabled:opacity-50 hover:bg-opacity-80 transition-all font-medium" disabled={!isAuthenticated || loading || !comment.trim()}>
         Post
       </button>
       {error && <div className="text-red-800 ml-2">{error}</div>}
