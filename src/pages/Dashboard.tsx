@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useUser } from '../context/UserContext';
@@ -83,21 +83,21 @@ const Dashboard = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {statCards.map((card, index) => (
             <motion.div
               key={card.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-md p-6"
+              className="bg-white rounded-xl shadow-md p-4"
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className={`w-12 h-12 ${card.color} rounded-lg flex items-center justify-center text-green-900`}>
+              <div className="flex items-center justify-between mb-3">
+                <div className={`w-10 h-10 ${card.color} rounded-lg flex items-center justify-center text-green-900`}>
                   {typeof card.icon === 'string' ? (
-                    <span className="text-2xl">{card.icon}</span>
+                    <span className="text-xl">{card.icon}</span>
                   ) : (
-                    <card.icon className="h-6 w-6" />
+                    <card.icon className="h-5 w-5" />
                   )}
                 </div>
                 <span className="text-2xl font-bold text-gray-900">{card.value}</span>
@@ -108,7 +108,7 @@ const Dashboard = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Plant Growth Section */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -116,17 +116,17 @@ const Dashboard = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="lg:col-span-1"
           >
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <div className="flex justify-between items-center mb-6">
+            <div className="bg-white rounded-xl shadow-md p-4">
+              <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold text-gray-900">Your Plant</h2>
                 <WaterDropCounter count={stats.waterDrops} size="md" />
               </div>
               
-              <div className="text-center mb-6">
-                <PlantGrowth growthLevel={stats.plantGrowthLevel} size="lg" />
+              <div className="text-center mb-4">
+                <PlantGrowth growthLevel={stats.plantGrowthLevel} size="md" />
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <button
                   onClick={() => setIsWaterModalOpen(true)}
                   disabled={stats.waterDrops === 0}
@@ -165,8 +165,8 @@ const Dashboard = () => {
             className="lg:col-span-2 space-y-6"
           >
             {/* Progress Overview */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center space-x-2">
+            <div className="bg-white rounded-xl shadow-md p-4">
+              <h2 className="text-lg font-bold text-gray-900 mb-3 flex items-center space-x-2">
                 <ChartBarIcon className="h-6 w-6 text-green-600" />
                 <span>Learning Progress</span>
               </h2>
@@ -204,17 +204,17 @@ const Dashboard = () => {
             </div>
 
             {/* Achievements */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                <TrophyIcon className="h-6 w-6 text-yellow-600" />
+            <div className="bg-white rounded-xl shadow-md p-4">
+              <h2 className="text-lg font-bold text-gray-900 mb-3 flex items-center space-x-2">
+                <TrophyIcon className="h-5 w-5 text-yellow-600" />
                 <span>Achievements</span>
               </h2>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {achievements.map((achievement, index) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {achievements.map((achievement) => (
                   <div
                     key={achievement.name}
-                    className={`p-4 rounded-lg border-2 transition-all ${
+                    className={`p-3 rounded-lg border-2 transition-all ${
                       achievement.unlocked
                         ? 'border-green-200 bg-green-50'
                         : 'border-gray-200 bg-gray-50 opacity-60'

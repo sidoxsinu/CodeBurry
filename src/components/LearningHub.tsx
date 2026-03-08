@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Code, Globe, Database, Brain, Clock, Trophy, ChevronRight, Droplets } from 'lucide-react';
 import { Challenge } from '../types';
 import { useUser } from '../context/UserContext';
@@ -13,7 +13,6 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
   const [startedById, setStartedById] = useState<Record<string, boolean>>({});
   const [completedById, setCompletedById] = useState<Record<string, boolean>>({});
   const [uploadById, setUploadById] = useState<Record<string, File | null>>({});
-  const [loadingSubs, setLoadingSubs] = useState(false);
   const [uploadingById, setUploadingById] = useState<Record<string, boolean>>({});
   const [errorById, setErrorById] = useState<Record<string, string | null>>({});
   const [flash, setFlash] = useState<string | null>(null);
@@ -97,21 +96,12 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
     ? challenges 
     : challenges.filter(c => c.category === selectedCategory);
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'beginner': return 'text-green-600 bg-green-100';
-      case 'intermediate': return 'text-yellow-600 bg-yellow-100';
-      case 'advanced': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
-
   return (
     <div className="min-h-screen pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12 glass-light rounded-3xl p-8 md:p-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 glass-light rounded-3xl p-6 md:p-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             Active Learning Hub
           </h1>
           <p className="text-xl text-gray-800 max-w-3xl mx-auto">
@@ -121,7 +111,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((category) => {
             const Icon = category.icon;
             return (
@@ -153,7 +143,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
         )}
 
         {/* Challenges Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredChallenges.map((challenge) => (
             <div
               key={challenge.id}
@@ -161,12 +151,12 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 (completedById[challenge.id] || challenge.completed) ? 'ring-2 ring-white ring-opacity-40' : ''
               }`}
             >
-              <div className="p-6">
+              <div className="p-4">
                 {/* Challenge Header */}
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex justify-between items-start mb-3">
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{challenge.title}</h3>
-                    <p className="text-gray-700 text-sm leading-relaxed">{challenge.description}</p>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">{challenge.title}</h3>
+                    <p className="text-gray-700 text-xs leading-relaxed">{challenge.description}</p>
                   </div>
                   {(completedById[challenge.id] || challenge.completed) && (
                     <div className="ml-4">
@@ -176,15 +166,15 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 </div>
 
                 {/* Challenge Metadata */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium text-gray-900 ${
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium text-gray-900 ${
                     challenge.difficulty === 'beginner' ? 'bg-green-300 bg-opacity-70' :
                     challenge.difficulty === 'intermediate' ? 'bg-yellow-300 bg-opacity-70' :
                     'bg-red-300 bg-opacity-70'
                   }`}>
                     {challenge.difficulty}
                   </span>
-                  <span className="flex items-center space-x-1 px-3 py-1 bg-cyan-700 bg-opacity-70 text-gray-900 rounded-full text-sm font-medium">
+                  <span className="flex items-center space-x-1 px-2 py-1 bg-cyan-700 bg-opacity-70 text-gray-900 rounded-full text-xs font-medium">
                     <Clock className="h-3 w-3" />
                     <span>{challenge.timeEstimate}</span>
                   </span>
@@ -193,9 +183,9 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 {/* Reward and Action */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-1">
-                    <Droplets className="h-5 w-5 text-cyan-700" />
-                    <span className="text-lg font-bold text-cyan-800">+{challenge.reward}</span>
-                    <span className="text-sm text-gray-700">drops</span>
+                    <Droplets className="h-4 w-4 text-cyan-700" />
+                    <span className="text-base font-bold text-cyan-800">+{challenge.reward}</span>
+                    <span className="text-xs text-gray-700">drops</span>
                   </div>
                   
                   <button
@@ -209,10 +199,10 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                         ? 'bg-green-400 bg-opacity-60 text-gray-900 cursor-not-allowed'
                         : startedById[challenge.id]
                           ? 'bg-yellow-400 bg-opacity-60 text-gray-900 cursor-default'
-                          : 'bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-300 hover:to-emerald-300 text-gray-900 shadow-md hover:shadow-lg'
+                          : 'bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-300 hover:to-emerald-300 text-gray-900 shadow-sm hover:shadow-md'
                     }`}
                   >
-                    <span>{(completedById[challenge.id] || challenge.completed) ? 'Completed' : startedById[challenge.id] ? 'Started' : 'Start Challenge'}</span>
+                    <span className="text-sm">{(completedById[challenge.id] || challenge.completed) ? 'Completed' : startedById[challenge.id] ? 'Started' : 'Start'}</span>
                     {!(completedById[challenge.id] || challenge.completed) && !startedById[challenge.id] && <ChevronRight className="h-4 w-4" />}
                   </button>
                 </div>
@@ -265,13 +255,13 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="glass-light rounded-3xl p-8 text-gray-900">
-            <h2 className="text-3xl font-bold mb-4">Ready to grow your forest?</h2>
-            <p className="text-xl text-gray-800 mb-6">
+        <div className="mt-12 text-center">
+          <div className="glass-light rounded-3xl p-6 text-gray-900">
+            <h2 className="text-2xl font-bold mb-3">Ready to grow your forest?</h2>
+            <p className="text-lg text-gray-800 mb-5">
               Complete challenges, earn water drops, and watch your skills bloom into mighty trees.
             </p>
-            <button className="bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-green-300 hover:to-emerald-300 transition-colors">
+            <button className="bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 px-6 py-3 rounded-xl font-bold text-base hover:from-green-300 hover:to-emerald-300 transition-colors">
               View My Garden
             </button>
           </div>
