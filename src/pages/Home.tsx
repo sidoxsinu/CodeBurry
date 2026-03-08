@@ -159,7 +159,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Ready to Start Your Coding Garden?
             </h2>
             <p className="text-xl text-green-100 mb-8">
@@ -167,7 +167,7 @@ const Home = () => {
             </p>
             <Link
               to="/register"
-              className="bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors inline-flex items-center space-x-2"
+              className="bg-gray-900 text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors inline-flex items-center space-x-2"
             >
               <span>Get Started Free</span>
               <ArrowRightIcon className="h-5 w-5" />

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Code, Globe, Database, Brain, Clock, Trophy, ChevronRight, Droplets } from 'lucide-react';
 import { Challenge } from '../types';
+import { useUser } from '../context/UserContext';
 
 interface LearningHubProps {
   onStartChallenge: (challenge: Challenge) => void;
 }
 
 export default function LearningHub({ onStartChallenge }: LearningHubProps) {
+  const { earnDropsFromTask } = useUser();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [startedById, setStartedById] = useState<Record<string, boolean>>({});
   const [completedById, setCompletedById] = useState<Record<string, boolean>>({});
@@ -16,27 +18,9 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
   const [errorById, setErrorById] = useState<Record<string, string | null>>({});
   const [flash, setFlash] = useState<string | null>(null);
 
-  // Load existing submissions to persist UI state
-  React.useEffect(() => {
-    (async () => {
-      try {
-        setLoadingSubs(true);
-        const res = await fetch('/api/me/submissions', { credentials: 'include' });
-        if (res.ok) {
-          const data = await res.json();
-          const started: Record<string, boolean> = {};
-          const completed: Record<string, boolean> = {};
-          (data.submissions || []).forEach((s: any) => {
-            started[s.challengeId] = true;
-            if (s.status === 'approved') completed[s.challengeId] = true;
-          });
-          setStartedById(started);
-          setCompletedById(completed);
-        }
-      } finally {
-        setLoadingSubs(false);
-      }
-    })();
+  // Pre-load some mocked completion states
+  useEffect(() => {
+    // You could load from local storage here if caching was desired
   }, []);
 
   const categories = [
@@ -147,7 +131,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                 className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
                   selectedCategory === category.id
                     ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-gray-900 shadow-lg'
-                    : 'glass text-white hover:bg-white hover:bg-opacity-30 shadow-md'
+                    : 'glass text-gray-900 hover:bg-white hover:bg-opacity-30 shadow-md'
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -252,25 +236,16 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                           if (!file) return;
                           setErrorById(prev => ({ ...prev, [challenge.id]: null }));
                           setUploadingById(prev => ({ ...prev, [challenge.id]: true }));
-                          const form = new FormData();
-                          form.append('file', file);
-                          form.append('challengeTitle', challenge.title);
-                          const res = await fetch(`/api/challenges/${challenge.id}/upload`, {
-                            method: 'POST',
-                            credentials: 'include',
-                            body: form
-                          });
-                          if (res.ok) {
-                            // Mark as submitted (not completed yet). Admin approval will award drops.
-                            setStartedById(prev => ({ ...prev, [challenge.id]: true }));
-                            // Optionally re-fetch submissions to check status
-                            setFlash('✅ Task uploaded');
-                            window.setTimeout(() => setFlash(null), 2000);
-                          } else {
-                            let msg = 'Failed to submit task';
-                            try { const j = await res.json(); if (j?.message) msg = j.message; } catch {}
-                            setErrorById(prev => ({ ...prev, [challenge.id]: msg }));
-                          }
+                          // Simulate network upload
+                          await new Promise(resolve => setTimeout(resolve, 800));
+                          
+                          setStartedById(prev => ({ ...prev, [challenge.id]: true }));
+                          setCompletedById(prev => ({ ...prev, [challenge.id]: true }));
+                          earnDropsFromTask(challenge.reward);
+                          
+                          setFlash(`✅ Task uploaded. Earned ${challenge.reward} drops!`);
+                          window.setTimeout(() => setFlash(null), 3000);
+                          
                           setUploadingById(prev => ({ ...prev, [challenge.id]: false }));
                         }}
                         disabled={!uploadById[challenge.id] || uploadingById[challenge.id]}

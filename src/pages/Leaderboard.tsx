@@ -88,11 +88,11 @@ const Leaderboard = () => {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-bold text-white mb-4"
+            className="text-4xl font-bold text-gray-900 mb-4"
           >
             🏆 Leaderboard 🏆
           </motion.h1>
-          <p className="text-xl text-white text-opacity-90 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-900 text-opacity-90 max-w-2xl mx-auto">
             See how you stack up against other CodeBurry learners! 
             Compete in different categories and climb the ranks.
           </p>
@@ -170,7 +170,7 @@ const Leaderboard = () => {
                       actualRank === 1 ? 'bg-yellow-400 bg-opacity-50 text-gray-900' :
                       actualRank === 2 ? 'bg-gray-300 bg-opacity-50 text-gray-900' :
                       actualRank === 3 ? 'bg-orange-400 bg-opacity-50 text-gray-900' :
-                      'bg-white bg-opacity-20 text-white'
+                      'bg-white bg-opacity-20 text-gray-900'
                     }`}>
                       {getRankIcon(actualRank)}
                     </div>
@@ -184,15 +184,15 @@ const Leaderboard = () => {
 
                     {/* User Info */}
                     <div className="flex-1">
-                      <h3 className={`font-semibold ${isCurrentUser ? 'text-white' : 'text-white'}`}>
+                      <h3 className={`font-semibold ${isCurrentUser ? 'text-gray-900' : 'text-gray-900'}`}>
                         {user.name}
                         {isCurrentUser && (
-                          <span className="ml-2 text-xs bg-green-400 bg-opacity-50 text-white px-2 py-1 rounded-full">
+                          <span className="ml-2 text-xs bg-green-400 bg-opacity-50 text-gray-900 px-2 py-1 rounded-full">
                             You
                           </span>
                         )}
                       </h3>
-                      <p className="text-sm text-white text-opacity-70">
+                      <p className="text-sm text-gray-900 text-opacity-70">
                         {activeTab === 'drops' && `${user.score} water drops`}
                         {activeTab === 'lessons' && `${user.score} lessons completed`}
                         {activeTab === 'streak' && `${user.score} day streak`}
@@ -208,7 +208,7 @@ const Leaderboard = () => {
                       }`}>
                         {user.score}
                       </div>
-                      <div className="text-sm text-white text-opacity-70">
+                      <div className="text-sm text-gray-900 text-opacity-70">
                         {activeTab === 'drops' && '💧'}
                         {activeTab === 'lessons' && '📚'}
                         {activeTab === 'streak' && '🔥'}
@@ -225,10 +225,10 @@ const Leaderboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 glass-light rounded-xl p-8 text-center text-white"
+          className="mt-8 glass-light rounded-xl p-8 text-center text-gray-900"
         >
           <h3 className="text-2xl font-bold mb-4">Keep Learning, Keep Growing! 🌱</h3>
-          <p className="text-white text-opacity-90 mb-6">
+          <p className="text-gray-900 text-opacity-90 mb-6">
             Every lesson you complete brings you closer to the top. Remember, the best time to plant a tree was 20 years ago. 
             The second best time is now!
           </p>

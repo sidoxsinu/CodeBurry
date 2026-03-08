@@ -35,7 +35,7 @@ const Header = () => {
               transition={{ duration: 0.6 }}
               className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center"
             >
-              <span className="text-white font-bold text-sm">CB</span>
+              <span className="text-gray-900 font-bold text-sm">CB</span>
             </motion.div>
             <span className="text-xl font-bold text-gray-900">CodeBurry</span>
           </Link>
@@ -66,7 +66,7 @@ const Header = () => {
             {isAuthenticated ? (
               <button
                 onClick={logout}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                className="bg-red-500 hover:bg-red-600 text-gray-900 px-4 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 Logout
               </button>
@@ -80,7 +80,7 @@ const Header = () => {
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="bg-green-600 hover:bg-green-700 text-gray-900 px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Sign Up
                 </Link>

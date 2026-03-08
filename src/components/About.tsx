@@ -206,7 +206,7 @@ export default function About({ onGetStarted }: AboutProps) {
             </p>
             <button
               onClick={onGetStarted}
-              className="bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
+              className="bg-gray-900 text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
             >
               <span>Plant Your First Tree</span>
               <ArrowRight className="h-5 w-5" />

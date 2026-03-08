@@ -97,7 +97,7 @@ const WaterPlantModal: React.FC<WaterPlantModalProps> = ({ isOpen, onClose }) =>
             <button
               onClick={handleWaterPlant}
               disabled={stats.waterDrops < waterAmount}
-              className="flex-1 py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="flex-1 py-2 px-4 bg-green-600 text-gray-900 rounded-md hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
             >
               Water Plant 💧
             </button>

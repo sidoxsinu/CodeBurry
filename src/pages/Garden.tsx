@@ -18,17 +18,16 @@ const Garden = () => {
     );
   }
 
-  // Generate some demo trees based on user stats
-  const trees = Array.from({ length: stats.totalTrees }, (_, index) => ({
-    id: index + 1,
-    type: ['🌳', '🌲', '🌴', '🎄'][index % 4],
-    name: ['Oak Tree', 'Pine Tree', 'Palm Tree', 'Christmas Tree'][index % 4],
-    plantedDate: new Date(Date.now() - (index * 7 * 24 * 60 * 60 * 1000)).toLocaleDateString()
+  const trees = stats.garden.map((t, index) => ({
+    id: t.id || String(index + 1),
+    type: t.growthStage === 'giant' ? '🌳' : t.growthStage === 'tree' ? '🌲' : '🌱',
+    name: t.name,
+    plantedDate: new Date(t.plantedAt).toLocaleDateString()
   }));
 
   // Add placeholder spots for future trees
   const totalSpots = 12;
-  const emptySpots = Math.max(0, totalSpots - stats.totalTrees);
+  const emptySpots = Math.max(0, totalSpots - stats.garden.length);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 py-8">

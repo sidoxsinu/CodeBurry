@@ -28,7 +28,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
           {/* Logo */}
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => onNavigate('home')}>
             <div className="bg-gradient-to-r from-green-500 to-green-600 p-2 rounded-lg">
-              <TreePine className="h-6 w-6 text-white" />
+              <TreePine className="h-6 w-6 text-gray-900" />
             </div>
             <span className="text-2xl font-bold text-gray-900">
               CodeBurry

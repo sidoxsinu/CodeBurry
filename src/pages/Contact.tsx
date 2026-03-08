@@ -231,13 +231,13 @@ const Contact = () => {
                   Connect with fellow learners and stay updated with the latest features!
                 </p>
                 <div className="flex justify-center space-x-6">
-                  <a href="#" className="glass bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-lg transition-colors text-sm">
+                  <a href="#" className="glass bg-gray-900 bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-lg transition-colors text-sm">
                     Discord
                   </a>
-                  <a href="#" className="glass bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-lg transition-colors text-sm">
+                  <a href="#" className="glass bg-gray-900 bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-lg transition-colors text-sm">
                     Twitter
                   </a>
-                  <a href="#" className="glass bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-lg transition-colors text-sm">
+                  <a href="#" className="glass bg-gray-900 bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-lg transition-colors text-sm">
                     GitHub
                   </a>
                 </div>

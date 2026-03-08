@@ -353,7 +353,7 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
                       className={`glass flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
                         challenge.completed
                           ? 'bg-green-100 text-green-600 cursor-not-allowed'
-                          : 'bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg'
+                          : 'bg-green-600 hover:bg-green-700 text-gray-900 shadow-md hover:shadow-lg'
                       }`}
                     >
                       <span>{challenge.completed ? 'Completed' : 'Start Challenge'}</span>
@@ -368,12 +368,12 @@ export default function LearningHub({ onStartChallenge }: LearningHubProps) {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-green-600 to-green-800 rounded-3xl p-8 text-white">
+          <div className="bg-gradient-to-r from-green-600 to-green-800 rounded-3xl p-8 text-gray-900">
             <h2 className="text-3xl font-bold mb-4">Ready to grow your forest?</h2>
             <p className="text-xl opacity-90 mb-6">
               Complete challenges, earn water drops, and watch your skills bloom into mighty trees.
             </p>
-            <button className="glass bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
+            <button className="glass bg-gray-900 text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
               View My Garden
             </button>
           </div>

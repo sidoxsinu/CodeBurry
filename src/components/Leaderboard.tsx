@@ -67,7 +67,7 @@ export default function Leaderboard({ entries, currentUserId }: LeaderboardProps
                 onClick={() => setTimeFilter(key as any)}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all ${
                   timeFilter === key
-                    ? 'bg-green-600 text-white shadow-md'
+                    ? 'bg-green-600 text-gray-900 shadow-md'
                     : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
                 }`}
               >
@@ -131,7 +131,7 @@ export default function Leaderboard({ entries, currentUserId }: LeaderboardProps
         {/* Full Leaderboard */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r from-green-600 to-green-800 px-6 py-4">
-            <h2 className="text-2xl font-bold text-white">Full Rankings</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Full Rankings</h2>
           </div>
           
           <div className="divide-y divide-gray-200">
@@ -193,12 +193,12 @@ export default function Leaderboard({ entries, currentUserId }: LeaderboardProps
 
         {/* Call to Action */}
         <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-white">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-gray-900">
             <h2 className="text-3xl font-bold mb-4">Climb the Rankings!</h2>
             <p className="text-xl opacity-90 mb-6">
               Complete more challenges, grow more trees, and see your name rise on the leaderboard.
             </p>
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
+            <button className="bg-gray-900 text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
               Start New Challenge
             </button>
           </div>

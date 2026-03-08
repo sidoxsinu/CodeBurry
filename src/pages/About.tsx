@@ -246,13 +246,13 @@ const About = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/register"
-                className="glass bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="glass bg-gray-900 text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors"
               >
                 Start Learning Free
               </a>
               <a
                 href="/contact"
-                className="glass border border-white text-green-900 hover:bg-white hover:text-green-600 px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="glass border border-white text-green-900 hover:bg-gray-900 hover:text-green-600 px-8 py-3 rounded-lg font-semibold transition-colors"
               >
                 Get in Touch
               </a>

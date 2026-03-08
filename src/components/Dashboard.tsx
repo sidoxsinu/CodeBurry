@@ -139,7 +139,7 @@ export default function Dashboard({ recentChallenges, onNavigate }: DashboardPro
                   <button
                     key={index}
                     onClick={action.action}
-                    className="flex flex-col items-center p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl transition-colors text-center"
+                    className="flex flex-col items-center p-3 bg-gray-900 bg-opacity-20 hover:bg-opacity-30 rounded-xl transition-colors text-center"
                   >
                     <Icon className="h-6 w-6 text-gray-700 mb-2" />
                     <span className="text-sm font-medium text-gray-900">{action.label}</span>

@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 
+import { Tree } from '../types';
+
 interface UserStats {
   waterDrops: number;
   completedLessons: number;
@@ -8,6 +10,7 @@ interface UserStats {
   totalTrees: number;
   plantGrowthLevel: number;
   rank: number;
+  garden: Tree[];
 }
 
 interface UserContextType {
@@ -17,6 +20,9 @@ interface UserContextType {
   completeLesson: () => void;
   waterPlant: (amount: number) => boolean;
   plantTree: () => void;
+  waterGardenTree: (treeId: string, cost: number) => boolean;
+  plantNewTreeInGarden: (treeInfo?: { name: string, category: string }) => void;
+  earnDropsFromTask: (amount: number) => void;
   refreshStats: () => Promise<void>;
 }
 
@@ -38,7 +44,25 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     currentStreak: 14,
     totalTrees: 5,
     plantGrowthLevel: 60,
-    rank: 1
+    rank: 1,
+    garden: [
+      {
+        id: 'tree-1',
+        name: 'React Basics',
+        category: 'Web',
+        growthStage: 'tree',
+        plantedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+        waterDropsInvested: 185,
+      },
+      {
+        id: 'tree-2',
+        name: 'Python Scripts',
+        category: 'Python',
+        growthStage: 'sapling',
+        plantedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+        waterDropsInvested: 60,
+      }
+    ]
   };
 
   const unauthenticatedStats: UserStats = {
@@ -47,7 +71,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     currentStreak: 0,
     totalTrees: 0,
     plantGrowthLevel: 0,
-    rank: 1
+    rank: 1,
+    garden: []
   };
 
   const [stats, setStats] = useState<UserStats>(isAuthenticated ? defaultStats : unauthenticatedStats);
@@ -116,9 +141,73 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return {
         ...prev,
         totalTrees: prev.totalTrees + 1,
-        plantGrowthLevel: 0
+        plantGrowthLevel: 0,
+        garden: [...prev.garden, {
+          id: `tree-${Date.now()}`,
+          name: 'Dashboard Reward Tree',
+          category: 'Achievement',
+          growthStage: 'seed',
+          plantedAt: new Date(),
+          waterDropsInvested: 0
+        }]
       };
     });
+  };
+
+  const waterGardenTree = (treeId: string, cost: number): boolean => {
+    let wasWatered = false;
+    setStats(prev => {
+      if (prev.waterDrops < cost) return prev;
+      wasWatered = true;
+      const stages: Tree['growthStage'][] = ['seed', 'sprout', 'sapling', 'tree', 'giant'];
+      return {
+        ...prev,
+        waterDrops: prev.waterDrops - cost,
+        garden: prev.garden.map(tree => {
+          if (tree.id === treeId) {
+            const currentIndex = stages.indexOf(tree.growthStage);
+            const nextStage = currentIndex < stages.length - 1 ? stages[currentIndex + 1] : stages[stages.length - 1];
+            return {
+              ...tree,
+              growthStage: nextStage,
+              waterDropsInvested: tree.waterDropsInvested + cost
+            };
+          }
+          return tree;
+        })
+      };
+    });
+    return wasWatered;
+  };
+
+  const plantNewTreeInGarden = (treeInfo?: { name: string, category: string }) => {
+    setStats(prev => {
+      const names = ['Oak Tree', 'Pine Tree', 'Palm Tree', 'Maple Tree'];
+      const categories = ['Web', 'JS', 'Python', 'DB'];
+      const randomName = treeInfo?.name || names[Math.floor(Math.random() * names.length)];
+      const randomCategory = treeInfo?.category || categories[Math.floor(Math.random() * categories.length)];
+      
+      return {
+        ...prev,
+        totalTrees: prev.totalTrees + 1,
+        garden: [...prev.garden, {
+          id: `tree-${Date.now()}`,
+          name: randomName,
+          category: randomCategory,
+          growthStage: 'seed',
+          plantedAt: new Date(),
+          waterDropsInvested: 0
+        }]
+      };
+    });
+  };
+
+  const earnDropsFromTask = (amount: number) => {
+    setStats(prev => ({
+      ...prev,
+      waterDrops: prev.waterDrops + amount,
+      completedLessons: prev.completedLessons + 1,
+    }));
   };
 
   const refreshStats = async () => {
@@ -133,6 +222,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       completeLesson,
       waterPlant,
       plantTree,
+      waterGardenTree,
+      plantNewTreeInGarden,
+      earnDropsFromTask,
       refreshStats
     }}>
       {children}

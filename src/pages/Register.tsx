@@ -89,7 +89,7 @@ const Register = () => {
           <div className="text-center">
             <Link to="/" className="inline-flex items-center space-x-2 mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">CB</span>
+                <span className="text-gray-900 font-bold text-lg">CB</span>
               </div>
               <span className="text-2xl font-bold text-gray-900">CodeBurry</span>
             </Link>
@@ -235,7 +235,7 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="glass w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="glass w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-gray-900 bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? 'Creating account...' : 'Create account'}
             </button>

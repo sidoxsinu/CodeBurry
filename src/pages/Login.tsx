@@ -34,7 +34,7 @@ const Login = () => {
           <div className="text-center">
             <Link to="/" className="inline-flex items-center space-x-2 mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">CB</span>
+                <span className="text-gray-900 font-bold text-lg">CB</span>
               </div>
               <span className="text-2xl font-bold text-gray-900">CodeBurry</span>
             </Link>

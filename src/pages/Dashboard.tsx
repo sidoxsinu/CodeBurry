@@ -15,7 +15,7 @@ import {
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const { stats } = useUser();
+  const { stats, plantTree } = useUser();
   const [isWaterModalOpen, setIsWaterModalOpen] = useState(false);
 
   if (!user) {
@@ -137,7 +137,10 @@ const Dashboard = () => {
                 </button>
 
                 {stats.plantGrowthLevel >= 100 && (
-                  <button className="glass w-full bg-green-600 hover:bg-green-700 text-green-900 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2">
+                  <button 
+                    onClick={plantTree}
+                    className="glass w-full bg-green-600 hover:bg-green-700 text-green-900 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
+                  >
                     <span>🌳</span>
                     <span>Plant Tree in Garden</span>
                   </button>

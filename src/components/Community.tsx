@@ -224,7 +224,7 @@ export default function Community({ posts, currentUser, onLikePost, onCreatePost
               Connect with fellow learners, share your progress, and celebrate each other's growth.
             </p>
             {!currentUser && (
-              <button className="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
+              <button className="bg-gray-900 text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
                 Sign Up to Join
               </button>
             )}
